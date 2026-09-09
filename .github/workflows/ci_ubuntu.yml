@@ -23,12 +23,12 @@ jobs:
         sudo apt update && sudo apt install -y cmake build-essential pkg-config libssl-dev libgtest-dev libtinyxml2-dev
 
     - name: Build and install common SDK
-      run: cmake -DBUILD_TESTING=0 .. && make install
-      working-directory: ./kuka_external_control_sdk_common/build
+      run: mkdir -p build && cd build && cmake -DBUILD_TESTING=0 .. && make install
+      working-directory: ./kuka_external_control_sdk_common
 
     - name: Build and install iiQKA2 SDK
-      run: cmake -DBUILD_TESTING=1 .. && make install
-      working-directory: ./kuka_external_control_sdk_iiqka2/build
+      run: mkdir -p build && cd build && cmake -DBUILD_TESTING=1 .. && make install
+      working-directory: ./kuka_external_control_sdk_iiqka2
 
     - name: Run iiQKA2 tests
       run: ./test_iiqka2_message_builder
