@@ -19,6 +19,9 @@ if(NOT tinyxml2_FOUND)
   find_package(tinyxml2_vendor REQUIRED)
 endif()
 find_package(kuka_external_control_sdk_common REQUIRED)
+if(NOT kuka_external_control_sdk_common_FOUND)
+  list(APPEND CMAKE_PREFIX_PATH "${CMAKE_INSTALL_PREFIX}")
+endif()
 
 set(target_name "kuka-external-control-sdk-iiqka2")
 

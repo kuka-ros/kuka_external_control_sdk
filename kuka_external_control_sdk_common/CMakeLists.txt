@@ -53,8 +53,8 @@ install(EXPORT SdkExport NAMESPACE Kuka::
 )
 
 install(FILES
-    ${CMAKE_CURRENT_LIST_DIR}/cmake/kuka-external-control-sdk-commonConfig.cmake
-    DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/kuka-external-control-sdk-common
+    ${CMAKE_CURRENT_LIST_DIR}/cmake/kuka_external_control_sdk_commonConfig.cmake
+    DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/kuka_external_control_sdk_common
 )
 
 install(DIRECTORY ${common_directory}/include/ ${utils_directory}/include/
