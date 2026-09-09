@@ -33,7 +33,7 @@ add_library(${target_name} STATIC ${sources})
 target_include_directories(${target_name} PUBLIC
   "$<BUILD_INTERFACE:${common_directory}/include>"
   "$<BUILD_INTERFACE:${utils_directory}/include>"
-  "$<INSTALL_INTERFACE:${CMAKE_INSTALL_PREFIX}/include>"
+  "$<INSTALL_INTERFACE:include>"
 )
 
 target_link_libraries(${target_name}

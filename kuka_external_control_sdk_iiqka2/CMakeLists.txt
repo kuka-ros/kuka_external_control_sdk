@@ -40,7 +40,7 @@ add_library(${target_name} STATIC ${sources})
 
 target_include_directories(${target_name} PUBLIC
   "$<BUILD_INTERFACE:${iiQKA2_directory}/include>"
-  "$<INSTALL_INTERFACE:${CMAKE_INSTALL_PREFIX}/include>"
+  "$<INSTALL_INTERFACE:include>"
 )
 
 target_link_libraries(${target_name}
@@ -52,7 +52,9 @@ target_link_libraries(${target_name}
 )
 
 get_target_property(COMMON_INCLUDE_DIRS kuka-external-control-sdk-common INTERFACE_INCLUDE_DIRECTORIES)
-target_include_directories(${target_name} PUBLIC ${COMMON_INCLUDE_DIRS})
+if(COMMON_INCLUDE_DIRS)
+  target_include_directories(${target_name} PUBLIC ${COMMON_INCLUDE_DIRS})
+endif()
 
 target_compile_features(${target_name} INTERFACE cxx_std_17 PRIVATE cxx_std_17)
 
