@@ -51,6 +51,9 @@ target_link_libraries(${target_name}
     tinyxml2
 )
 
+get_target_property(COMMON_INCLUDE_DIRS kuka-external-control-sdk-common INTERFACE_INCLUDE_DIRECTORIES)
+target_include_directories(${target_name} PUBLIC ${COMMON_INCLUDE_DIRS})
+
 target_compile_features(${target_name} INTERFACE cxx_std_17 PRIVATE cxx_std_17)
 
 if(BUILD_TESTING)
