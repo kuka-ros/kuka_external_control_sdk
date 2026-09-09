@@ -4,8 +4,6 @@
   <name>kuka_external_control_sdk_iiqka2</name>
   <version>2.0.0</version>
   <description>iiQKA.OS2 client library for the KUKA external control SDK</description>
-  <maintainer email="kovacsge.work@gmail.com">Gergely Kovacs</maintainer>
-  <maintainer email="pasztor.kristof.kp@gmail.com">Kristof Matyas Pasztor</maintainer>
   <maintainer email="pepo.tamas@gmail.com">Tamas Pepo</maintainer>
   <maintainer email="svastits1@gmail.com">Aron Svastits</maintainer>
   <license>Apache-2.0</license>
