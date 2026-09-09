@@ -1,3 +1,0 @@
-            case 3 ; Cancel
-               command_mode = #SYNC
-                CWRITE($CMD, state, mode, "CANCEL 1")
