@@ -48,8 +48,8 @@ install(TARGETS ${target_name} EXPORT SdkExport
     RUNTIME  DESTINATION ${CMAKE_INSTALL_BINDIR})
 
 install(EXPORT SdkExport NAMESPACE Kuka::
-    FILE kuka-external-control-sdk-commonTargets.cmake
-    DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/kuka-external-control-sdk-common
+    FILE kuka_external_control_sdk_commonTargets.cmake
+    DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/kuka_external_control_sdk_common
 )
 
 install(FILES
