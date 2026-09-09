@@ -15,6 +15,10 @@ The basic implementation offers no additional functionality beyond what is speci
 - `StopMonitoring()` — **Monitoring is not supported on iiQKA.OS2.**
 - `CreateMonitoringSubscription(std::function<void(BaseMotionState&)> callback)` — **Monitoring is not supported on iiQKA.OS2.**
 - `CancelMonitoringSubscription()` — **Monitoring is not supported on iiQKA.OS2.**
+- `HasMonitoringSubscription()` — **Monitoring is not supported on iiQKA.OS2.**
+
+The following methods are only supported by the EKI or mxA wrapper; they are not supported by the RSI-only interface:
+
 - `SwitchControlMode(ControlMode control_mode)`
 - `RegisterEventHandler(std::unique_ptr<EventHandler>&& event_handler)`
 

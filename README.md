@@ -37,8 +37,8 @@ The methods of the IRobot class provide the general interface:
 - `ReceiveMotionState(std::chrono::milliseconds timeout)`: Attempts to receive the current motion state of the robot within the provided timeout.
 - `GetControlSignal()`: Returns the most recent control signal, which the user can fill with the desired data.
 - `GetLastMotionState()`: Returns the most recent motion state of the control flow.
-- `SwitchControlMode(ControlMode control_mode)`: **Not supported on iiQKA.OS2.**
-- `RegisterEventHandler(std::unique_ptr<EventHandler>&& event_handler)`: **Not supported on iiQKA.OS2.**
+- `SwitchControlMode(ControlMode control_mode)`: Supported when using the EKI or mxA wrapper; not supported by the RSI-only interface.
+- `RegisterEventHandler(std::unique_ptr<EventHandler>&& event_handler)`: Supported when using the EKI or mxA wrapper; not supported by the RSI-only interface.
 
 ### SDK Usage
 
