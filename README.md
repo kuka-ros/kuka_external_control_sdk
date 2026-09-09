@@ -27,22 +27,22 @@ The methods of the IRobot class provide the general interface:
 
 - `Setup()`: Sets up the network connection with the robot controller.
 - `StartControlling(ControlMode control_mode)`: Starts the external control session on the controller.
-- `StartMonitoring()`: Starts external monitoring, allowing the robot to publish motion states.
-- `CreateMonitoringSubscription(std::function<void(BaseMotionState&)> callback)`: Creates a subscriber to the robot's motion states on the client side.
-- `CancelMonitoringSubscription()`: Terminates the motion state subscriber on the client side.
-- `HasMonitoringSubscription()`: Checks if the client is currently subscribed to the robot's monitoring messages.
+- `StartMonitoring()`: **Not supported on iiQKA.OS2.**
+- `CreateMonitoringSubscription(std::function<void(BaseMotionState&)> callback)`: **Not supported on iiQKA.OS2.**
+- `CancelMonitoringSubscription()`: **Not supported on iiQKA.OS2.**
+- `HasMonitoringSubscription()`: **Not supported on iiQKA.OS2.**
 - `StopControlling()`: Stops the external control session on the controller. The stop signal must be sent in response to a motion state; the function also waits for a new request if none is currently active.
-- `StopMonitoring()`: Stops the motion state publisher on the controller.
+- `StopMonitoring()`: **Not supported on iiQKA.OS2.**
 - `SendControlSignal()`: Sends the control signal to the controller.
 - `ReceiveMotionState(std::chrono::milliseconds timeout)`: Attempts to receive the current motion state of the robot within the provided timeout.
 - `GetControlSignal()`: Returns the most recent control signal, which the user can fill with the desired data.
 - `GetLastMotionState()`: Returns the most recent motion state of the control flow.
-- `SwitchControlMode(ControlMode control_mode)`: Changes the control mode to the one specified in the parameter.
-- `RegisterEventHandler(std::unique_ptr<EventHandler>&& event_handler)`: Allows the user to react to events streamed from the controller.
+- `SwitchControlMode(ControlMode control_mode)`: **Not supported on iiQKA.OS2.**
+- `RegisterEventHandler(std::unique_ptr<EventHandler>&& event_handler)`: **Not supported on iiQKA.OS2.**
 
 ### SDK Usage
 
-In this section, we'll describe a general use case for both controlling and monitoring, using sequence diagrams to illustrate the process.
+In this section, we'll describe a general use case for controlling, using a sequence diagram to illustrate the process.
 
 #### Control Example
 
@@ -60,23 +60,7 @@ The `ControlSignal` is the opposite: it's a write-only object that the user must
 
 **Note**: In the received motion states, the torque values have the opposite sign of what the client is expected to send out during torque control. To move a joint in the positive direction, a positive torque is needed, but the motion state will contain a negative measured torque due to internal conventions.
 
-As stated in the interface description, you can register an `EventHandler` to react to events (e.g., sampling started, control mode switched, control stopped, error detected) from the controller. To do this, implement a class that derives from the default `EventHandler` base and override the desired functions.
-
-To change the control mode at runtime, issue the `SwitchControlMode` call. If successful, send control signals for the new control mode from that point on.
-
-Since real-time communication follows a request-reply pattern, the `StopControlling` and `SwitchControlMode` methods must be sent as a reply to a received request; otherwise, an error is returned. The first `MotionState` may arrive later directly after a switch, so it's recommended to use a higher timeout (around 1 second) for the following receive. Depending on network quality, these operations may need to be retried due to potential packet losses.
-
-#### Monitoring Example
-
-![monitoring_example](kuka_external_control_sdk_common/doc/diagrams/MonitoringExample.png)
-
-To start the monitoring flow, initialize with `Setup` and call `StartMonitoring`.
-
-In addition to the `StartMonitoring` call, there's a separate `CreateMonitoringSubscription` operation. The former starts publishing motion states on the controller, while the latter creates a subscriber on the client to receive the published states. This allows for subscriptions from multiple clients.
-
-To handle incoming monitoring messages according to your specific use case, create a callback and pass it to the `CreateMonitoringSubscription` function.
-
-To stop monitoring on the client side, call `CancelMonitoringSubscription`. To stop publishing on the controller, call `StopMonitoring`.
+Since real-time communication follows a request-reply pattern, the `StopControlling` method must be sent as a reply to a received request; otherwise, an error is returned. Depending on network quality, this operation may need to be retried due to potential packet losses.
 
 ### OS-Specific Implementations
 

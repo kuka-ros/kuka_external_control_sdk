@@ -1,37 +1,37 @@
-# KSS Robot Interface
+# iiQKA.OS2 Robot Interface
 
-This document describes all KSS-specific functionality of the SDK.
+This document describes all iiQKA.OS2-specific functionality of the SDK.
 
-The SDK uses the **Robot Sensor Interface** (RSI) option package for controlling the robot. If you have followed the [setup guide for KSS](kss_eki_setup.md), you already have this installed. However, the guide also instructs you to install EKI, which isn't necessary if you only want to control the robot from an external system.
+The SDK uses the **Robot Sensor Interface** (RSI) option package for controlling the robot. If you have followed the [setup guide for iiQKA.OS2](iiqka_os2_setup.md), you already have this installed. However, the guide also instructs you to install EKI or mxA, which isn't necessary if you only want to control the robot from an external system.
 
-There are two versions of the KSS-specific robot interface available: one that offers functionality solely for controlling the robot, and another that also communicates with the robot controller in a non-real-time manner, enabling additional functionality (e.g., receiving status updates, changing the RSI cycle time).
+There are two versions of the iiQKA.OS2-specific robot interface available: one that offers functionality solely for controlling the robot, and another that also communicates with the robot controller in a non-real-time manner, enabling additional functionality (e.g., receiving status updates, changing the RSI cycle time).
 
 ## Basic Robot Interface
 
 The basic implementation offers no additional functionality beyond what is specified by the `IRobot` interface. However, the following methods are not supported, despite being listed in the interface:
 
 - `StartControlling()`
-- `StartMonitoring()`
-- `StopMonitoring()`
-- `CreateMonitoringSubscription(std::function<void(BaseMotionState&)> callback)`
-- `CancelMonitoringSubscription()`
+- `StartMonitoring()` — **Monitoring is not supported on iiQKA.OS2.**
+- `StopMonitoring()` — **Monitoring is not supported on iiQKA.OS2.**
+- `CreateMonitoringSubscription(std::function<void(BaseMotionState&)> callback)` — **Monitoring is not supported on iiQKA.OS2.**
+- `CancelMonitoringSubscription()` — **Monitoring is not supported on iiQKA.OS2.**
 - `SwitchControlMode(ControlMode control_mode)`
 - `RegisterEventHandler(std::unique_ptr<EventHandler>&& event_handler)`
 
 Since the `StartControlling` method is not supported, you might wonder how to start controlling the robot. The timeout before receiving the very first motion state from the robot controller should be set to a longer period of time. Once the program starts waiting for this motion state, you should manually start one of the RSI programs (i.e., `rsi_joint_pos_4ms` or `rsi_joint_pos_12ms.src`) previously deployed to the robot controller by selecting it on the SmartHMI. Once the first message from RSI arrives at the external control system, you will be able to control the robot.
 
-If you wish to look into the implementation, you may want to start with [`robot_interface.h`](../kss/include/kuka/external-control-sdk/kss/rsi/robot_interface.h).
+If you wish to look into the implementation, you may want to start with [`robot_interface.h`](../include/kuka/external-control-sdk/kss/rsi/robot_interface.h).
 
 ## Enhanced Robot Interface
 
-The enhanced robot interface is derived from the basic one. This means that controlling happens the same way it did before; however, you will not have to start the KRL program manually, since most methods in the `IRobot` interface are implemented in this version. The exceptions are:
+The enhanced robot interface is derived from the basic one. This means that controlling happens the same way it did before; however, you will not have to start the program manually, since most methods in the `IRobot` interface are implemented in this version. The exceptions are:
 
-- `StartMonitoring()`
-- `StopMonitoring()`
-- `CreateMonitoringSubscription(std::function<void(BaseMotionState&)> callback)`
-- `CancelMonitoringSubscription()`
+- `StartMonitoring()` — **Monitoring is not supported on iiQKA.OS2.**
+- `StopMonitoring()` — **Monitoring is not supported on iiQKA.OS2.**
+- `CreateMonitoringSubscription(std::function<void(BaseMotionState&)> callback)` — **Monitoring is not supported on iiQKA.OS2.**
+- `CancelMonitoringSubscription()` — **Monitoring is not supported on iiQKA.OS2.**
 
-In short, monitoring is not yet supported. However, there are methods that are only available for KSS with EKI:
+However, there are methods that are only available for iiQKA.OS2 with EKI or mxA:
 
 - `TurnOnDrives()`: Turns the robot's drives on.
 - `TurnOffDrives()`: Turns the robot's drives off.
@@ -41,13 +41,13 @@ In short, monitoring is not yet supported. However, there are methods that are o
 
 All other methods work as described in the generic `IRobot` interface description.
 
-If you wish to look into the implementation, you may want to start with [`robot_interface.h`](../kss/include/kuka/external-control-sdk/kss/eki/robot_interface.h).
+If you wish to look into the implementation, you may want to start with [`robot_interface.h`](../include/kuka/external-control-sdk/kss/eki/robot_interface.h).
 
 ## Convenience Wrapper Class
 
 To provide a unified class for using all different versions, a wrapper class was created. This class instantiates the appropriate version of the robot interface based on the configuration passed to it and forwards all method calls to the underlying implementation.
 
-If you wish to look into the implementation, you may want to start with [`robot.h`](../kss/include/kuka/external-control-sdk/kss/robot.h).
+If you wish to look into the implementation, you may want to start with [`robot.h`](../include/kuka/external-control-sdk/kss/robot.h).
 
 ## Configurable Motion-State XML Parsing
 
