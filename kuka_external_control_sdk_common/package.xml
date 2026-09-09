@@ -4,8 +4,8 @@
   <name>kuka_external_control_sdk_common</name>
   <version>2.0.0</version>
   <description>Common utilities for the KUKA external control SDK</description>
-  <maintainer email="pepo.tamas@gmail.com">Tamas Pepo</maintainer>
-  <maintainer email="svastits1@gmail.com">Aron Svastits</maintainer>
+  <maintainer email="tamas.pepo@kuka.com">Tamas Pepo</maintainer>
+  <maintainer email="aron.svastits@kuka.com">Aron Svastits</maintainer>
   <license>Apache-2.0</license>
 
   <buildtool_depend>cmake</buildtool_depend>

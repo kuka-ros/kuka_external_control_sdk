@@ -4,7 +4,7 @@ This repository provides the SDK used for KUKA external control on iiQKA.OS2. It
 
 GitHub CI | SonarCloud
 ------------ | --------------
-[![Build Status](https://github.com/kuka-ros/kuka_external_control_sdk/actions/workflows/industrial_ci.yml/badge.svg)](https://github.com/kuka-ros/kuka_external_control_sdk/actions/workflows/industrial_ci.yml) | [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=kuka-ros_kuka_external_control_sdk&metric=alert_status)](https://sonarcloud.io/dashboard?id=kuka-ros_kuka_external_control_sdk)
+[![Build Status](https://github.com/kuka-ros/kuka_external_control_sdk/actions/workflows/industrial_ci.yml/badge.svg)](https://github.com/kuka-ros/kuka_external_control_sdk/actions/workflows/industrial_ci.yml) | [![Quality gate status](https://sonarcloud.io/api/project_badges/measure?project=kuka-ros_kuka_external_control_sdk&metric=alert_status&token=541838268065ace6b784e876d345f7cbbefa5f9a)](https://sonarcloud.io/summary/new_code?id=kuka-ros_kuka_external_control_sdk)(https://sonarcloud.io/dashboard?id=kuka-ros_kuka_external_control_sdk)
 
 
 This guide will help you understand how to use the SDK to control your robot externally. You'll find information on the SDK's structure and setup instructions tailored to different systems.
