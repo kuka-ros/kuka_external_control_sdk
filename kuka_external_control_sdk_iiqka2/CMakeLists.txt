@@ -23,7 +23,7 @@ if(NOT kuka_external_control_sdk_common_FOUND)
   list(APPEND CMAKE_PREFIX_PATH "${CMAKE_INSTALL_PREFIX}")
 endif()
 
-set(common_target_name "kuka-external-control-sdk-common")
+set(common_target_name "Kuka::kuka-external-control-sdk-common")
 set(target_name "kuka-external-control-sdk-iiqka2")
 
 set(sources
