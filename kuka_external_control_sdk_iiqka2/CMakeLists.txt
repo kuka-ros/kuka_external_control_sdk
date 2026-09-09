@@ -23,6 +23,7 @@ if(NOT kuka_external_control_sdk_common_FOUND)
   list(APPEND CMAKE_PREFIX_PATH "${CMAKE_INSTALL_PREFIX}")
 endif()
 
+set(common_target_name "kuka-external-control-sdk-common")
 set(target_name "kuka-external-control-sdk-iiqka2")
 
 set(sources
@@ -46,12 +47,12 @@ target_include_directories(${target_name} PUBLIC
 target_link_libraries(${target_name}
   PUBLIC
     Threads::Threads
-    kuka-external-control-sdk-common
+    ${common_target_name}
   PRIVATE
     tinyxml2
 )
 
-get_target_property(COMMON_INCLUDE_DIRS kuka-external-control-sdk-common INTERFACE_INCLUDE_DIRECTORIES)
+get_target_property(COMMON_INCLUDE_DIRS ${common_target_name} INTERFACE_INCLUDE_DIRECTORIES)
 if(COMMON_INCLUDE_DIRS)
   target_include_directories(${target_name} PUBLIC ${COMMON_INCLUDE_DIRS})
 endif()
