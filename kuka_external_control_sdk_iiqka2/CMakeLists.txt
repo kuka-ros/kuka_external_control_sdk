@@ -99,6 +99,7 @@ install(EXPORT SdkExport NAMESPACE Kuka::
 
 install(FILES
     ${CMAKE_CURRENT_LIST_DIR}/cmake/kuka-external-control-sdk-iiqka2Config.cmake
+    ${CMAKE_CURRENT_LIST_DIR}/cmake/Findtinyxml2.cmake
     DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/kuka-external-control-sdk-iiqka2
 )
 
