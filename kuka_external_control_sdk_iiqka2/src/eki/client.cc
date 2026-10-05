@@ -54,6 +54,23 @@ bool QueryBoolAttribute(tinyxml2::XMLElement * element, const char * name, bool 
   value = parsed_value != 0;
   return true;
 }
+
+bool IsValidControlMode(uint8_t value)
+{
+  return value <= static_cast<uint8_t>(ControlMode::WRENCH_CONTROL);
+}
+
+bool IsValidCycleTime(uint8_t value)
+{
+  return value == static_cast<uint8_t>(CycleTime::UNSPECIFIED) ||
+         value == static_cast<uint8_t>(CycleTime::RSI_4MS) ||
+         value == static_cast<uint8_t>(CycleTime::RSI_12MS);
+}
+
+bool IsValidOperationMode(uint8_t value)
+{
+  return value <= static_cast<uint8_t>(OperationMode::EXT);
+}
 }  // namespace
 
 Client::Client(const std::string & server_address, uint16_t server_port, uint16_t client_port)
@@ -391,12 +408,14 @@ bool Client::ParseStatus(char * data_to_parse)
   if (
     !QueryUint8Attribute(status, "ControlMode", control_mode) ||
     !QueryUint8Attribute(status, "CycleTime", cycle_time) ||
+    !IsValidControlMode(control_mode) || !IsValidCycleTime(cycle_time) ||
     !QueryBoolAttribute(status, "DrivesPowered", status_update_.drives_powered_) ||
     !QueryBoolAttribute(status, "EmergencyStop", status_update_.emergency_stop_) ||
     !QueryBoolAttribute(status, "GuardStop", status_update_.guard_stop_) ||
     !QueryBoolAttribute(status, "InMotion", status_update_.in_motion_) ||
     !QueryBoolAttribute(status, "MotionPossible", status_update_.motion_possible_) ||
     !QueryUint8Attribute(status, "OperationMode", operation_mode) ||
+    !IsValidOperationMode(operation_mode) ||
     !QueryBoolAttribute(status, "RobotStopped", status_update_.robot_stopped_))
   {
     return false;

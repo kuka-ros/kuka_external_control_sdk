@@ -53,6 +53,24 @@ TEST(EKIClientParsing, RejectsStatusWithOutOfRangeBoolAttribute)
   EXPECT_FALSE(client.ParseMessage(xml.data()));
 }
 
+TEST(EKIClientParsing, RejectsStatusWithInvalidEnumAttributes)
+{
+  const std::string status_attributes =
+    "DrivesPowered=\"1\" EmergencyStop=\"0\" GuardStop=\"0\" InMotion=\"0\" "
+    "MotionPossible=\"1\" RobotStopped=\"0\"";
+  const std::string invalid_statuses[] = {
+    "<Status ControlMode=\"9\" CycleTime=\"1\" " + status_attributes + " OperationMode=\"4\"/>",
+    "<Status ControlMode=\"1\" CycleTime=\"3\" " + status_attributes + " OperationMode=\"4\"/>",
+    "<Status ControlMode=\"1\" CycleTime=\"1\" " + status_attributes + " OperationMode=\"5\"/>"};
+
+  for (const auto & status : invalid_statuses)
+  {
+    Client client("127.0.0.1", 1);
+    std::string xml = "<Robot><Response EventID=\"12\"></Response>" + status + "</Robot>";
+    EXPECT_FALSE(client.ParseMessage(xml.data()));
+  }
+}
+
 TEST(EKIClientParsing, ParsesStatusWithoutWritingThroughReinterpretedPointers)
 {
   Client client("127.0.0.1", 1);
