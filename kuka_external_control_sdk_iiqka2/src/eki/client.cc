@@ -407,8 +407,8 @@ bool Client::ParseStatus(char * data_to_parse)
   uint8_t operation_mode = 0;
   if (
     !QueryUint8Attribute(status, "ControlMode", control_mode) ||
-    !QueryUint8Attribute(status, "CycleTime", cycle_time) ||
-    !IsValidControlMode(control_mode) || !IsValidCycleTime(cycle_time) ||
+    !QueryUint8Attribute(status, "CycleTime", cycle_time) || !IsValidControlMode(control_mode) ||
+    !IsValidCycleTime(cycle_time) ||
     !QueryBoolAttribute(status, "DrivesPowered", status_update_.drives_powered_) ||
     !QueryBoolAttribute(status, "EmergencyStop", status_update_.emergency_stop_) ||
     !QueryBoolAttribute(status, "GuardStop", status_update_.guard_stop_) ||
