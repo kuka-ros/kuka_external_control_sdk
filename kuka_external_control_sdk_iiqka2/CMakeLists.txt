@@ -135,6 +135,8 @@ install(FILES package.xml DESTINATION share/${PROJECT_NAME})
 # Generates the colcon environment hooks needed to put the package on AMENT_PREFIX_PATH
 find_package(ament_cmake QUIET)
 if(ament_cmake_FOUND)
+  ament_export_targets(SdkExport HAS_LIBRARY_TARGET NAMESPACE Kuka::)
+  ament_export_dependencies(Threads kuka_external_control_sdk_common)
   ament_package()
 else()
 #### Begin import ####

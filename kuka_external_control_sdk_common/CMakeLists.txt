@@ -70,6 +70,8 @@ install(FILES package.xml DESTINATION share/${PROJECT_NAME})
 find_package(ament_cmake QUIET)
 
 if(ament_cmake_FOUND)
+  ament_export_targets(SdkExport HAS_LIBRARY_TARGET NAMESPACE Kuka::)
+  ament_export_dependencies(Threads)
   ament_package()
 else()
 #### Begin import ####
