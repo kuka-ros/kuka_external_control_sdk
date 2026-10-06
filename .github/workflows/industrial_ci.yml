@@ -19,6 +19,9 @@ on:
       - feature/**
       - fix/**
 
+permissions:
+  contents: read
+
 jobs:
   industrial_ci:
     name: ROS-Industrial CI
@@ -27,16 +30,18 @@ jobs:
         env:
         - ROS_REPO: ros
           BUILDER: colcon
+          TARGET_CMAKE_ARGS: -DCMAKE_EXPORT_COMPILE_COMMANDS=ON
+          ADDITIONAL_DEBS: ca-certificates curl jq unzip
           TEST_COVERAGE: true
           ROS_DISTRO: humble
     env:
       CCACHE_DIR: /github/home/.ccache # Directory for ccache (and how we enable ccache in industrial_ci)
       EVENT_NAME: ${{ github.event_name }}
-      BRANCH: ${{ github.event.ref }}
+      BRANCH: ${{ github.ref_name }}
       PR_BRANCH: ${{ github.event.pull_request.head.ref }}
       PR_BASE: ${{ github.event.pull_request.base.ref }}
       PR_NUMBER: ${{ github.event.number }}
-      DEBUG_BASH: true
+      DEBUG_BASH: false
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -48,5 +53,14 @@ jobs:
           path: ${{ env.CCACHE_DIR }}
           key: ccache-${{ matrix.env.ROS_DISTRO }}-${{ matrix.env.ROS_REPO }}
       # Run industrial_ci
-      - uses: 'ros-industrial/industrial_ci@master'
-        env: ${{ matrix.env }}
+      - uses: ros-industrial/industrial_ci@125164b9f1883cdf1858897a7146d1bebf2be5c6
+        with:
+          config: ${{ toJSON(matrix.env) }}
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+          DOCKER_RUN_OPTS: >-
+            -e SONAR_TOKEN -e EVENT_NAME -e BRANCH
+            -e PR_BRANCH -e PR_BASE -e PR_NUMBER
+          AFTER_SCRIPT: >-
+            rosenv bash "$TARGET_REPO_PATH/.ci/sonar.sh"
+            "$BASEDIR/${PREFIX}target_ws" "$TARGET_REPO_NAME"
