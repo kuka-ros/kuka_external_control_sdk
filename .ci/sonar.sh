@@ -3,7 +3,7 @@ set +x
 set -euo pipefail
 
 if [[ -z "${SONAR_TOKEN:-}" ]]; then
-    echo "Skipping Sonar analysis: SONAR_TOKEN is unavailable."
+    echo "::warning::Skipping Sonar analysis: SONAR_TOKEN is unavailable (expected for fork pull requests)."
     exit 0
 fi
 
@@ -43,11 +43,13 @@ if command -v sonar-scanner > /dev/null 2>&1; then
     scanner="$(command -v sonar-scanner)"
 else
     scanner_version=8.1.0.6389
+    scanner_sha256=bb8f709f9cb73352f8d1260a3b3c506c0f41146754bc630762c126d795499d0b
     scanner_directory="$(mktemp -d)"
     trap 'rm -rf "$scanner_directory"' EXIT
     curl --fail --silent --show-error --location --retry 3 \
         "https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-${scanner_version}-linux-x64.zip" \
         --output "$scanner_directory/scanner.zip"
+    printf '%s  %s\n' "$scanner_sha256" "$scanner_directory/scanner.zip" | sha256sum --check --strict
     unzip -q "$scanner_directory/scanner.zip" -d "$scanner_directory"
     scanner="$scanner_directory/sonar-scanner-${scanner_version}-linux-x64/bin/sonar-scanner"
 fi

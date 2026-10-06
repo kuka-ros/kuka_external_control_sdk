@@ -19,6 +19,9 @@ on:
       - feature/**
       - fix/**
 
+permissions:
+  contents: read
+
 jobs:
   industrial_ci:
     name: ROS-Industrial CI
