@@ -132,6 +132,13 @@ install(DIRECTORY ${iiQKA2_directory}/include/
 # Installing this in non-ROS environments won't have any effect, but it won't harm, either.
 install(FILES package.xml DESTINATION share/${PROJECT_NAME})
 
+# Generates the colcon environment hooks needed to put the package on AMENT_PREFIX_PATH
+find_package(ament_cmake QUIET)
+if(ament_cmake_FOUND)
+  ament_export_targets(SdkExport HAS_LIBRARY_TARGET NAMESPACE Kuka::)
+  ament_export_dependencies(Threads kuka_external_control_sdk_common)
+  ament_package()
+else()
 #### Begin import ####
 # Imported from ros-industrial/ros_industrial_cmake_boilerplate
 # Copyright (C) 2018 by George Cave - gcave@stablecoder.ca
@@ -161,3 +168,4 @@ install(FILES
     DESTINATION share/${PROJECT_NAME}/hook
 )
 #### End import ####
+endif()
