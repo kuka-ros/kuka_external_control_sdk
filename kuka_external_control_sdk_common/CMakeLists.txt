@@ -66,6 +66,12 @@ install(DIRECTORY ${common_directory}/include/ ${utils_directory}/include/
 # Installing this in non-ROS environments won't have any effect, but it won't harm, either.
 install(FILES package.xml DESTINATION share/${PROJECT_NAME})
 
+# Generates the colcon environment hooks needed to put the package on AMENT_PREFIX_PATH
+find_package(ament_cmake QUIET)
+
+if(ament_cmake_FOUND)
+  ament_package()
+else()
 #### Begin import ####
 # Imported from ros-industrial/ros_industrial_cmake_boilerplate
 # Copyright (C) 2018 by George Cave - gcave@stablecoder.ca
@@ -94,4 +100,5 @@ install(FILES
     ${CMAKE_CURRENT_BINARY_DIR}/share/${PROJECT_NAME}/hook/ros_package_path.dsv
     DESTINATION share/${PROJECT_NAME}/hook
 )
+endif()
 #### End import ####
