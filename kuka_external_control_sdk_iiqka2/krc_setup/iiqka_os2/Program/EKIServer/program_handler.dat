@@ -9,8 +9,19 @@ DEFDAT program_handler PUBLIC
     DECL STATE_T statement_state
     DECL MODUS_T command_mode = #SYNC
 
-    ; FOLD Program handler state variables
-    DECL ControlMode selected_control_mode = #INACTIVE
-    DECL ROS_CycleTime selected_cycle_time = #RSI_4MS
-    ; ENDFOLD
+; FOLD Program handler state variables
+DECL ControlMode selected_control_mode=#INACTIVE
+DECL ROS_CycleTime selected_cycle_time=#RSI_4MS
+; ENDFOLD
+
+
+; FOLD Auto Ext IO Configuration
+; These must be mapped to physical in and out modules
+; AutoExt interface must be setup to read these $IN values
+INT ioMoveEnable=1009
+INT ioConfMsg=1010
+INT ioDrives_ON=1011
+INT ioDrives_OFF=1012
+INT ioExtStart=1013
+; ENDFOLD
 ENDDAT

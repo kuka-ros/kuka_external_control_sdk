@@ -40,4 +40,9 @@ GLOBAL DEF SPS_LoopCall()
         ; Wait for a tick if there is no active connection to avoid CPU errors
         WAIT SEC 0.012
     ENDIF
+    
+    ; Move Enable - Enable Robot for non-Ext mode
+    IF ($MODE_OP<>#EX) THEN
+       ROS_AE_MoveEnable(TRUE)
+    ENDIF
 END

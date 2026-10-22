@@ -42,11 +42,16 @@ GLOBAL DEF ROS_HandleCommand(cmd:IN)
       CASE #CMD_CHANGE
          ChangeControlMode(cmd)
       CASE #CMD_DRIVES_ON
-         $DRIVES_ENABLE=TRUE
-         CONFIRM 0
+         ;$DRIVES_ENABLE=TRUE  ==> obsolete in KSS9.3
+
+         ;CONFIRM 0
+         ROS_AE_ConfMsg()
+         ROS_AE_DrivesOn()
          ROS_SetLastEvent(#DRIVES_TURNED_ON)
       CASE #CMD_DRIVES_OFF
-         $DRIVES_ENABLE=FALSE
+         ;$DRIVES_ENABLE=FALSE  ==> obsolete in KSS9.3
+
+         ROS_AE_DrivesOff()
          ROS_SetLastEvent(#DRIVES_TURNED_OFF)
       DEFAULT
          ROS_SetLastEvent(#INVALID)
