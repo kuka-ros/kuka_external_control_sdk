@@ -50,12 +50,12 @@ For a more complex control scenario, including external axes or I/O, the context
     1. Connect `$IN[1009]`-`$IN[1013]` to the `Digital Input Output Board (DIOB)` input bits 0-4 on `TxPDO process data mapping.Digital input state`.  
     2. Connect `$OUT[1009]`-`$OUT[1013]` to the `Digital Input Output Board (DIOB)` output bits 0-4 on `RxPDO process data mapping.Digital output command`.  
     3. Also setup the Automatic Extern signals.  Select `Variables->Automatic Extern->Inputs` on one side tree and `KRC->Digital Inputs` on the other side.  Connect the Auto Extern variables as shown in the table of the [wiring diagram](./diagrams/ROS_AutoExtLoopback.drawio.png).
-    4. When complete, the input configuration will look like [this](./diagrams/InputMapping.png), and the output configuration will look like [this](./diagrams/OutputMapping.png).
+    4. When complete, the input configuration will look like [this](./diagrams/InputMapping.png),  the output configuration will look like [this](./diagrams/OutputMapping.png), and the Auto External configuration will look like [this](./diagrams/AutoExtMapping.png).
 4.  **Step 3 ALTERNATE:** For convenience, The above step can be performed by importing a partial fieldbus configuration from the file [DIOB_IOconfig.pvcmx](../../kuka_external_control_sdk_iiqka2/krc_setup/iiqka_os2/Config/DIOB_IOconfig.pvcmx).  Note that this will delete any IO configurations already created.
     1.  To use this, delete the `KUKA Digital IO Board (DIOB)` from the `Kuka System Bus (SYS-X48)`.
     2.  Then right click on the `Kuka System Bus (SYS-X48)` and select **Export/Import** -> **Import Partial Project**.  
     3.  Click the **Import** button.
-    4.  This will setup all the IO mapping.  The input configuration will look like [this](./diagrams/InputMapping.png), and the output configuration will look like [this](./diagrams/OutputMapping.png).
+    4.  This will setup all the IO mapping.  The input configuration will look like [this](./diagrams/InputMapping.png), the output configuration will look like [this](./diagrams/OutputMapping.png), and the Auto External configuration will look like [this](./diagrams/AutoExtMapping.png).
 
 ### mxA server setup
 
