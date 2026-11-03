@@ -168,39 +168,40 @@ DEFFCT BOOL WaitForStateTransition(ProState: IN, Timeout: IN)
 ENDFCT
 
 GLOBAL DEF ROS_AE_MoveEnable(setON:IN)  
-DECL BOOL setON
-   ; This output must be physically wired to corresponding input
-   $OUT[ioMoveEnable]=setON
+    DECL BOOL setON
+
+    ; This output must be physically wired to corresponding input
+    $OUT[ioMoveEnable]=setON
 END
 
 
 GLOBAL DEF ROS_AE_ConfMsg()   
-   ; This output must be physically wired to corresponding input
-   $OUT[ioConfMsg]=FALSE
-   PULSE($OUT[ioConfMsg], TRUE, 0.1)
+    ; This output must be physically wired to corresponding input
+    $OUT[ioConfMsg]=FALSE
+    PULSE($OUT[ioConfMsg], TRUE, 0.1)
 END
 
 GLOBAL DEF ROS_AE_DrivesOn()
-   ; This output must be physically wired to corresponding input
-   ROS_AE_MoveEnable(TRUE)
-   WAIT SEC 0.1
-   $OUT[ioDrives_OFF]=TRUE
-   $OUT[ioDrives_ON]=FALSE
-   PULSE($OUT[ioDrives_ON], TRUE, 0.1)
+    ; This output must be physically wired to corresponding input
+    ROS_AE_MoveEnable(TRUE)
+    WAIT SEC 0.1
+    $OUT[ioDrives_OFF]=TRUE
+    $OUT[ioDrives_ON]=FALSE
+    PULSE($OUT[ioDrives_ON], TRUE, 0.1)
 END
 
 
 GLOBAL DEF ROS_AE_DrivesOff()
-   ; This output must be physically wired to corresponding input
-   ROS_AE_MoveEnable(FALSE)
-   $OUT[ioDrives_OFF]=FALSE
+    ; This output must be physically wired to corresponding input
+    ROS_AE_MoveEnable(FALSE)
+    $OUT[ioDrives_OFF]=FALSE
 END
 
 
 GLOBAL DEF ROS_AE_StartProg()
-   ; This output must be physically wired to corresponding input
-   $OUT[ioExtStart]=FALSE
-   PULSE($OUT[ioExtStart], TRUE, 0.1)
+    ; This output must be physically wired to corresponding input
+    $OUT[ioExtStart]=FALSE
+    PULSE($OUT[ioExtStart], TRUE, 0.1)
 END
 
 
