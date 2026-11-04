@@ -167,15 +167,14 @@ DEFFCT BOOL WaitForStateTransition(ProState: IN, Timeout: IN)
     RETURN FALSE
 ENDFCT
 
-GLOBAL DEF ROS_AE_MoveEnable(setON:IN)  
+GLOBAL DEF ROS_AE_MoveEnable(setON:IN)
     DECL BOOL setON
 
     ; This output must be physically wired to corresponding input
     $OUT[ioMoveEnable]=setON
 END
 
-
-GLOBAL DEF ROS_AE_ConfMsg()   
+GLOBAL DEF ROS_AE_ConfMsg()
     ; This output must be physically wired to corresponding input
     $OUT[ioConfMsg]=FALSE
     PULSE($OUT[ioConfMsg], TRUE, 0.1)
@@ -190,20 +189,17 @@ GLOBAL DEF ROS_AE_DrivesOn()
     PULSE($OUT[ioDrives_ON], TRUE, 0.1)
 END
 
-
 GLOBAL DEF ROS_AE_DrivesOff()
     ; This output must be physically wired to corresponding input
     ROS_AE_MoveEnable(FALSE)
     $OUT[ioDrives_OFF]=FALSE
 END
 
-
 GLOBAL DEF ROS_AE_StartProg()
     ; This output must be physically wired to corresponding input
     $OUT[ioExtStart]=FALSE
     PULSE($OUT[ioExtStart], TRUE, 0.1)
 END
-
 
 GLOBAL DEF ROS_SelectControlMode(mode: IN)
     DECL ControlMode mode
@@ -220,8 +216,6 @@ ENDFCT
 GLOBAL DEFFCT ControlMode ROS_GetSelControlMode()
     RETURN selected_control_mode
 ENDFCT
-
-
 
 GLOBAL DEFFCT ROS_CycleTime ROS_GetSelCycTime()
     RETURN selected_cycle_time
