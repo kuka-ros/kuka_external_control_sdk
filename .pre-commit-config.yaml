@@ -106,4 +106,4 @@ repos:
     hooks:
       - id: codespell
         args: ['--write-changes']
-        exclude: (CHANGELOG\.rst|\.src$|\.dat$)
+        exclude: (CHANGELOG\.rst|\.src$|\.dat$|\.drawio$)
